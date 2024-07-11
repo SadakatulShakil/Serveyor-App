@@ -1,5 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:serveyor_app/View/Screen/Dashboard/DashBoardScreen.dart';
+import 'package:serveyor_app/View/Screen/Splash/OnBoardingScreen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../Utill/color_resources.dart';
@@ -11,41 +13,27 @@ class SplashScreen extends StatefulWidget {
 
 class _SplashScreenState extends State<SplashScreen> {
 
-  // Future<void> _doSessionTask ()async {
-  //   SharedPreferences prefs = await SharedPreferences.getInstance();
-  //
-  //   String expiryTime = prefs.getString('session_expiry')??'';
-  //   print('cccccccccc: '+ expiryTime);
-  //   if(expiryTime != ''){
-  //     final expirationTime = DateTime.parse(expiryTime);
-  //     final currentTime = DateTime.now();
-  //     if(currentTime.isAfter(expirationTime)){
-  //       prefs.setString('tokenId', '');
-  //       prefs.setString('session_expiry', '');
-  //       await Future.delayed(const Duration(seconds: 2));
-  //       Navigator.pushReplacement(
-  //         context,
-  //         MaterialPageRoute(builder: (context) => LoginScreen()),
-  //       );
-  //     }else{
-  //       Navigator.pushReplacement(
-  //         context,
-  //         MaterialPageRoute(builder: (context) => DashBoardScreen()),
-  //       );
-  //     }
-  //   }else{
-  //     Navigator.pushReplacement(
-  //       context,
-  //       MaterialPageRoute(builder: (context) => LoginScreen()),
-  //     );
-  //   }
-  //
-  // }
+  Future<void> _doSessionTask ()async {
+    await Future.delayed(Duration(seconds: 3));
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    bool isFirstTime = prefs.getBool('isFirstTime') ?? true;
+
+    if (isFirstTime) {
+      Navigator.of(context).pushReplacement(
+        MaterialPageRoute(builder: (context) => OnboardScreen()),
+      );
+    } else {
+      Navigator.of(context).pushReplacement(
+        MaterialPageRoute(builder: (context) => DashBoardScreen()),
+      );
+    }
+
+  }
 
   @override
   void initState() {
     super.initState();
-    //_doSessionTask();
+    _doSessionTask();
   }
 
   @override
