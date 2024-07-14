@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:serveyor_app/View/Screen/Dashboard/DashBoardScreen.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:serveyor_app/View/Screen/Login/LoginScreen.dart';
 import 'package:serveyor_app/View/Screen/Splash/OnBoardingScreen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -16,7 +17,7 @@ class _SplashScreenState extends State<SplashScreen> {
   Future<void> _doSessionTask ()async {
     await Future.delayed(Duration(seconds: 3));
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    bool isFirstTime = prefs.getBool('isFirstTime') ?? true;
+    bool isFirstTime = prefs.getBool('iFirstTime') ?? true;
 
     if (isFirstTime) {
       Navigator.of(context).pushReplacement(
@@ -24,7 +25,7 @@ class _SplashScreenState extends State<SplashScreen> {
       );
     } else {
       Navigator.of(context).pushReplacement(
-        MaterialPageRoute(builder: (context) => DashBoardScreen()),
+        MaterialPageRoute(builder: (context) => LoginScreen()),
       );
     }
 
@@ -47,12 +48,12 @@ class _SplashScreenState extends State<SplashScreen> {
             Image.asset('assets/images/logo.png', height: 150,),
             Text(
               'Surveyor App',
-              style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold, color: Colors.black87),
+              style: GoogleFonts.mulish(fontSize: 30, fontWeight: FontWeight.bold, color: Colors.black87),
             ),
             SizedBox(height: 10),
             Text(
               'A platform built for a new way of working',
-              style: TextStyle(fontSize: 16, color: Colors.black54),
+              style: GoogleFonts.mulish(fontSize: 16, color: Colors.black54),
               textAlign: TextAlign.center,
             ),
             SizedBox(height: 40),
