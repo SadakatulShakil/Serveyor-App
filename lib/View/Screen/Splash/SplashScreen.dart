@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:serveyor_app/View/Screen/Dashboard/DashBoardScreen.dart';
 import 'package:serveyor_app/View/Screen/Login/LoginScreen.dart';
 import 'package:serveyor_app/View/Screen/Splash/OnBoardingScreen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -17,18 +18,24 @@ class _SplashScreenState extends State<SplashScreen> {
   Future<void> _doSessionTask ()async {
     await Future.delayed(Duration(seconds: 3));
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    bool isFirstTime = prefs.getBool('iFirstTime') ?? true;
+    bool isFirstTime = prefs.getBool('isFirstTime') ?? true;
+    bool isLogged = prefs.getBool('iFirstTime') ?? true;
+
+    //print('bool: $isLogged ------ $isFirstTime');
 
     if (isFirstTime) {
       Navigator.of(context).pushReplacement(
         MaterialPageRoute(builder: (context) => OnboardScreen()),
       );
-    } else {
-      Navigator.of(context).pushReplacement(
-        MaterialPageRoute(builder: (context) => LoginScreen()),
-      );
+    }else if (!isLogged) {
+        Navigator.of(context).pushReplacement(
+          MaterialPageRoute(builder: (context) => DashBoardScreen()),
+        );
+      }else{
+        Navigator.of(context).pushReplacement(
+          MaterialPageRoute(builder: (context) => LoginScreen()),
+        );
     }
-
   }
 
   @override
