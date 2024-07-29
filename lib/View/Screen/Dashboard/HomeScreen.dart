@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:serveyor_app/View/Screen/SurveyPages/MapDirectionScreen.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -21,7 +22,7 @@ class _HomeScreenState extends State<HomeScreen> {
         children: [
           // Blue background with curved bottom
           Container(
-            height: MediaQuery.of(context).size.height * 0.5, // Adjust as needed
+            height: MediaQuery.of(context).size.height * 0.57, // Adjust as needed
             decoration: BoxDecoration(
               color: Colors.blue,
               borderRadius: BorderRadius.only(
@@ -42,6 +43,15 @@ class _HomeScreenState extends State<HomeScreen> {
                   topRight: Radius.circular(30),
                 ),
               ),
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  _buildIncomingRequestCard(),
+                  SizedBox(height: 8,),
+                  _buildBottomButtons(),
+                ],
+              ),
+            ),
             ),
           ),
           // Content
@@ -50,10 +60,6 @@ class _HomeScreenState extends State<HomeScreen> {
               children: [
                 _buildProfileSection(),
                 _buildStatsSection(),
-                SizedBox(height: 12,),
-                _buildIncomingRequestCard(),
-                SizedBox(height: 12,),
-                _buildBottomButtons(),
               ],
             ),
           ),
@@ -69,7 +75,7 @@ class _HomeScreenState extends State<HomeScreen> {
         children: [
           CircleAvatar(
             radius: 30,
-            backgroundImage: AssetImage('assets/profile_image.jpg'),
+            backgroundImage: AssetImage('assets/images/mahim.png'),
           ),
           SizedBox(width: 16),
           Column(
@@ -97,7 +103,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   Widget _buildStatsSection() {
     return Padding(
-      padding: const EdgeInsets.all(16.0),
+      padding: const EdgeInsets.only(left: 16.0, right: 16.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -109,7 +115,7 @@ class _HomeScreenState extends State<HomeScreen> {
             '$totalEarning BDT',
             style: TextStyle(color: Colors.white, fontSize: 28, fontWeight: FontWeight.bold),
           ),
-          SizedBox(height: 16),
+          SizedBox(height: 10),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -142,68 +148,70 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Widget _buildIncomingRequestCard() {
-    return Container(
-      margin: EdgeInsets.all(16),
-      padding: EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(12),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.1),
-            blurRadius: 10,
-            offset: Offset(0, 5),
-          ),
-        ],
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text('Incoming Request', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-          SizedBox(height: 16),
-          Row(
-            children: [
-              CircleAvatar(
-                radius: 20,
-                backgroundImage: AssetImage('assets/mohsin_image.jpg'),
-              ),
-              SizedBox(width: 12),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text('Mohsin Kalam', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
-                  Text('3 kms away | 20 mins', style: TextStyle(color: Colors.grey)),
-                ],
-              ),
-              Spacer(),
-              Icon(Icons.star, color: Colors.yellow, size: 18),
-              Text('4.8', style: TextStyle(fontSize: 16)),
-            ],
-          ),
-          SizedBox(height: 12),
-          Text('Location', style: TextStyle(color: Colors.grey)),
-          Text('Bijoy Sharani, Dahaka', style: TextStyle(fontSize: 16)),
-          SizedBox(height: 16),
-          Row(
-            children: [
-              Expanded(
-                child: ElevatedButton(
-                  onPressed: _handleAccept,
-                  child: Text('Accept'),
-                  style: ElevatedButton.styleFrom(primary: Colors.blue),
+    return Center(
+      child: Container(
+        margin: EdgeInsets.all(16),
+        padding: EdgeInsets.all(16),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(12),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.1),
+              blurRadius: 10,
+              offset: Offset(0, 5),
+            ),
+          ],
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text('Incoming Request', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+            SizedBox(height: 16),
+            Row(
+              children: [
+                CircleAvatar(
+                  radius: 20,
+                  backgroundImage: AssetImage('assets/images/mohsin.png'),
                 ),
-              ),
-              SizedBox(width: 12),
-              Expanded(
-                child: OutlinedButton(
-                  onPressed: _handleDetails,
-                  child: Text('Details'),
-                  style: OutlinedButton.styleFrom(primary: Colors.blue),
+                SizedBox(width: 12),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text('Mohsin Kalam', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+                    Text('3 kms away | 20 mins', style: TextStyle(color: Colors.grey)),
+                  ],
                 ),
-              ),
-            ],
-          ),
-        ],
+                Spacer(),
+                Icon(Icons.star, color: Colors.yellow, size: 18),
+                Text('4.8', style: TextStyle(fontSize: 16)),
+              ],
+            ),
+            SizedBox(height: 12),
+            Text('Location', style: TextStyle(color: Colors.grey)),
+            Text('Bijoy Sharani, Dahaka', style: TextStyle(fontSize: 16)),
+            SizedBox(height: 16),
+            Row(
+              children: [
+                Expanded(
+                  child: ElevatedButton(
+                    onPressed: _handleAccept,
+                    child: Text('Accept'),
+                    style: ElevatedButton.styleFrom(primary: Colors.blue),
+                  ),
+                ),
+                SizedBox(width: 12),
+                Expanded(
+                  child: OutlinedButton(
+                    onPressed: _handleDetails,
+                    child: Text('Details'),
+                    style: OutlinedButton.styleFrom(primary: Colors.blue),
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -238,7 +246,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ],
             ),
-            child: Icon(icon, color: Colors.blue, size: 30),
+            child: Icon(icon, color: Colors.blue, size: 50),
           ),
           SizedBox(height: 8),
           Text(label, style: TextStyle(color: Colors.blue)),
@@ -250,9 +258,12 @@ class _HomeScreenState extends State<HomeScreen> {
   // Example methods to handle user interactions
   void _handleAccept() {
     // Implement accept logic
-    setState(() {
-      totalSurvey++;
-    });
+    // setState(() {
+    //   totalSurvey++;
+    // });
+    Navigator.of(context).push(
+      MaterialPageRoute(builder: (context) => MapDirectionScreen()),
+    );
   }
 
   void _handleDetails() {
