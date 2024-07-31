@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
+import 'package:serveyor_app/View/Screen/Dashboard/Wallet/MyWalletScreen.dart';
 
 import 'HomeScreen.dart';
 import 'Profile/ProfileScreen.dart';
-import 'Wallet/WalletScreen.dart';
 
 class DashBoardScreen extends StatefulWidget {
   const DashBoardScreen({Key? key}) : super(key: key);
@@ -17,7 +17,7 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
   int _selectedIndex = 0;
   static List<Widget> _screens = [
     HomeScreen(),
-    WalletScreen(),
+    MyWalletScreen(),
     ProfileScreen(false),
   ];
 

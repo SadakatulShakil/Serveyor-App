@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import '../Models/claim_data.dart';
 
@@ -33,7 +34,7 @@ class _ClaimInformationStepState extends State<ClaimInformationStep> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('Claim information', style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
+          Text('Claim information', style: GoogleFonts.mulish(fontSize: 24, fontWeight: FontWeight.bold)),
           SizedBox(height: 20),
           _buildDropdownField('Policy information', _policyController),
           SizedBox(height: 16),
@@ -57,7 +58,7 @@ class _ClaimInformationStepState extends State<ClaimInformationStep> {
     return TextField(
       controller: controller,
       decoration: InputDecoration(
-        labelText: label,
+        labelText: label, labelStyle: GoogleFonts.mulish(),
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
         suffixIcon: Icon(Icons.arrow_drop_down),
       ),
@@ -73,7 +74,7 @@ class _ClaimInformationStepState extends State<ClaimInformationStep> {
       controller: controller,
       maxLines: maxLines,
       decoration: InputDecoration(
-        labelText: label,
+        labelText: label,labelStyle: GoogleFonts.mulish(),
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
         suffixIcon: icon != null ? Icon(icon) : null,
       ),
@@ -99,7 +100,7 @@ class _ClaimInformationStepState extends State<ClaimInformationStep> {
         }
       },
       decoration: InputDecoration(
-        labelText: label,
+        labelText: label,labelStyle: GoogleFonts.mulish(),
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
         suffixIcon: Icon(Icons.calendar_today),
       ),
@@ -125,7 +126,7 @@ class _ClaimInformationStepState extends State<ClaimInformationStep> {
         }
       },
       decoration: InputDecoration(
-        labelText: label,
+        labelText: label,labelStyle: GoogleFonts.mulish(),
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
         suffixIcon: Icon(Icons.access_time),
       ),

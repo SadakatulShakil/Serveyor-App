@@ -59,7 +59,7 @@ class _ClaimInsuranceFormState extends State<ClaimInsuranceForm> {
           icon: Icon(Icons.arrow_back, color: Colors.black),
           onPressed: _currentStep == 0 ? () => Navigator.of(context).pop() : _previousStep,
         ),
-        title: Text('Step ${_currentStep + 1}/3: New Claim', style: TextStyle(color: Colors.black)),
+        title: Text('Step ${_currentStep + 1}/3: New Claim', style: GoogleFonts.mulish(color: Colors.black)),
         backgroundColor: Colors.transparent,
         elevation: 0,
       ),

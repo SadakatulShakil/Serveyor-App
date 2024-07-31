@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import '../Models/claim_data.dart';
 
@@ -32,7 +33,7 @@ class _PersonalInformationStepState extends State<PersonalInformationStep> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('Personal Information', style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
+          Text('Personal Information', style: GoogleFonts.mulish(fontSize: 24, fontWeight: FontWeight.bold)),
           SizedBox(height: 20),
           _buildInputField('Name', _nameController),
           SizedBox(height: 16),
@@ -48,7 +49,7 @@ class _PersonalInformationStepState extends State<PersonalInformationStep> {
     return TextField(
       controller: controller,
       decoration: InputDecoration(
-        labelText: label,
+        labelText: label,labelStyle: GoogleFonts.mulish(),
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
       ),
       onChanged: (_) => _updateClaimData(),

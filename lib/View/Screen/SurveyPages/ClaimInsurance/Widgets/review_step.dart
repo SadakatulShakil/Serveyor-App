@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-
+import 'package:google_fonts/google_fonts.dart';
 import '../Models/claim_data.dart';
 
 class ReviewStep extends StatelessWidget {
@@ -15,7 +15,7 @@ class ReviewStep extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('Review Information', style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
+          Text('Review Information', style: GoogleFonts.mulish(fontSize: 24, fontWeight: FontWeight.bold)),
           SizedBox(height: 20),
           _buildReviewItem('Policy Information', claimData.policyInformation),
           _buildReviewItem('Location', claimData.location),
@@ -36,7 +36,7 @@ class ReviewStep extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(label, style: TextStyle(fontWeight: FontWeight.bold)),
+          Text(label, style: GoogleFonts.mulish(fontWeight: FontWeight.bold)),
           SizedBox(height: 4),
           Text(value),
         ],
