@@ -47,29 +47,52 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFFADD8E6),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Image.asset('assets/images/logo.png', height: 150,),
-            Text(
-              'Surveyor App',
-              style: GoogleFonts.mulish(fontSize: 30, fontWeight: FontWeight.bold, color: Colors.black87),
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Expanded(
+            child: Center(
+              child: Logo(),
             ),
-            SizedBox(height: 10),
-            Text(
-              'A platform built for a new way of working',
-              style: GoogleFonts.mulish(fontSize: 16, color: Colors.black54),
-              textAlign: TextAlign.center,
-            ),
-            SizedBox(height: 40),
-          ],
-        ),
+          ),
+          BottomTexts(),
+        ],
       )
     );
 
   }
+}
 
+class Logo extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Image.asset('assets/images/splash.png', height: 150,)
+    );
+  }
+}
 
+class BottomTexts extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 32.0),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Text(
+            'Surveyor',
+            style: GoogleFonts.mulish(fontSize: 30, fontWeight: FontWeight.bold, color: Colors.black87),
+          ),
+          SizedBox(height: 10),
+          Text(
+            'A platform built for a new way of working',
+            style: GoogleFonts.mulish(fontSize: 16, color: Colors.black54),
+            textAlign: TextAlign.center,
+          ),
+          SizedBox(height: 40),
+        ],
+      ),
+    );
+  }
 }

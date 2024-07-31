@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class ProfileScreen extends StatefulWidget {
   bool isBackButton;
@@ -10,218 +11,140 @@ class ProfileScreen extends StatefulWidget {
 
 class _ProfileScreenState extends State<ProfileScreen> {
   // Example state variables
-  String userName = 'Mahim Sikdar';
-  double userRating = 4.8;
-  int totalEarning = 10000;
-  int totalSurvey = 50;
-  String timeOnline = '15h 30m';
-  String status = 'Online';
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        color: Colors.blue,
-        child: SafeArea(
-          child: Column(
+      body: Column(
+        children: [
+          Stack(
+            clipBehavior: Clip.none,
+            alignment: Alignment.bottomLeft,
             children: [
-              _buildProfileSection(),
-              _buildStatsSection(),
-              _buildIncomingRequestCard(),
-              _buildBottomButtons(),
+              ClipPath(
+                clipper: MyClipper(),
+                child: Container(
+                  height: 300,
+                  width: MediaQuery.of(context).size.width,
+                  child: Stack(
+                    fit: StackFit.expand,
+                    children: [
+                      Image.asset(
+                        'assets/images/mahim.png',
+                        fit: BoxFit.cover,
+                      ),
+                      Container(
+                        color: Colors.blueAccent.withOpacity(0.7),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              if (widget.isBackButton)
+                Positioned(
+                  top: 40,
+                  left: 10,
+                  child: IconButton(
+                    icon: Icon(Icons.arrow_back, color: Colors.white),
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                  ),
+                ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Positioned(
+                      left: 20,
+                      bottom: 10,
+                      child: CircleAvatar(
+                        radius: 50,
+                        backgroundColor: Colors.white,
+                        child: CircleAvatar(
+                          radius: 45,
+                          backgroundImage: AssetImage('assets/images/mahim.png'),
+                        ),
+                      ),
+                    ),
+                    Column(
+                      children: [
+                        SizedBox(height: 16,),
+                        Icon(
+                          Icons.settings,
+                          color: Colors.blue,
+                        ),
+                        Text("Setings", style: GoogleFonts.mulish(color: Colors.blue),)
+                      ],
+                    ),
+                  ],
+                ),
+              ),
             ],
           ),
-        ),
+          SizedBox(height: 20),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                _buildStatColumn('3057', 'Total Survey'),
+                _buildStatColumn('4.5', 'Rating'),
+                _buildStatColumn('5200 BDT', 'Earning'),
+              ],
+            ),
+          ),
+          SizedBox(height: 20),
+          _buildInfoRow(Icons.email, 'laukeith94@gmail.com'),
+          _buildInfoRow(Icons.phone, '+82 95 5808 2654'),
+          _buildInfoRow(Icons.language, 'www.laukeith.com'),
+        ],
       ),
     );
   }
 
-  Widget _buildProfileSection() {
+  Widget _buildStatColumn(String count, String label) {
+    return Column(
+      children: [
+        Text(
+          count,
+          style: GoogleFonts.mulish(fontWeight: FontWeight.bold, fontSize: 16),
+        ),
+        Text(label, style: GoogleFonts.mulish(color: Colors.grey)),
+      ],
+    );
+  }
+
+  Widget _buildInfoRow(IconData icon, String text) {
     return Padding(
-      padding: const EdgeInsets.all(16.0),
+      padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 20.0),
       child: Row(
         children: [
-          CircleAvatar(
-            radius: 30,
-            backgroundImage: AssetImage('assets/profile_image.jpg'),
-          ),
-          SizedBox(width: 16),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                userName,
-                style: TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),
-              ),
-              Row(
-                children: [
-                  Icon(Icons.star, color: Colors.yellow, size: 18),
-                  Text(
-                    userRating.toString(),
-                    style: TextStyle(color: Colors.white, fontSize: 16),
-                  ),
-                ],
-              ),
-            ],
-          ),
+          Icon(icon, color: Colors.blue[300], size: 20),
+          SizedBox(width: 10),
+          Text(text, style: GoogleFonts.mulish(fontSize: 14)),
         ],
       ),
     );
   }
+}
 
-  Widget _buildStatsSection() {
-    return Padding(
-      padding: const EdgeInsets.all(16.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            'Total Earning',
-            style: TextStyle(color: Colors.white70, fontSize: 16),
-          ),
-          Text(
-            '$totalEarning BDT',
-            style: TextStyle(color: Colors.white, fontSize: 28, fontWeight: FontWeight.bold),
-          ),
-          SizedBox(height: 16),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              _buildStatItem('Total Survey', totalSurvey.toString()),
-              _buildStatItem('Time Online', timeOnline),
-              _buildStatItem('Status', status, isStatus: true),
-            ],
-          ),
-        ],
-      ),
-    );
+class MyClipper extends CustomClipper<Path> {
+  @override
+  Path getClip(Size size) {
+    var path = Path();
+    path.lineTo(0, size.height - 100);
+    var firstControlPoint = Offset(size.width / 2, size.height);
+    var firstEndPoint = Offset(size.width, size.height - 100);
+    path.quadraticBezierTo(firstControlPoint.dx, firstControlPoint.dy,
+        firstEndPoint.dx, firstEndPoint.dy);
+    path.lineTo(size.width, 0);
+    path.close();
+    return path;
   }
 
-  Widget _buildStatItem(String label, String value, {bool isStatus = false}) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(label, style: TextStyle(color: Colors.white70, fontSize: 14)),
-        SizedBox(height: 4),
-        Text(
-          value,
-          style: TextStyle(
-            color: isStatus ? Colors.greenAccent : Colors.white,
-            fontSize: 16,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-      ],
-    );
-  }
-
-  Widget _buildIncomingRequestCard() {
-    return Container(
-      margin: EdgeInsets.all(16),
-      padding: EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(12),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text('Incoming Request', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-          SizedBox(height: 16),
-          Row(
-            children: [
-              CircleAvatar(
-                radius: 20,
-                backgroundImage: AssetImage('assets/mohsin_image.jpg'),
-              ),
-              SizedBox(width: 12),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text('Mohsin Kalam', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
-                  Text('3 kms away | 20 mins', style: TextStyle(color: Colors.grey)),
-                ],
-              ),
-              Spacer(),
-              Icon(Icons.star, color: Colors.yellow, size: 18),
-              Text('4.8', style: TextStyle(fontSize: 16)),
-            ],
-          ),
-          SizedBox(height: 12),
-          Text('Location', style: TextStyle(color: Colors.grey)),
-          Text('Bijoy Sharani, Dahaka', style: TextStyle(fontSize: 16)),
-          SizedBox(height: 16),
-          Row(
-            children: [
-              Expanded(
-                child: ElevatedButton(
-                  onPressed: _handleAccept,
-                  child: Text('Accept'),
-                  style: ElevatedButton.styleFrom(primary: Colors.blue),
-                ),
-              ),
-              SizedBox(width: 12),
-              Expanded(
-                child: OutlinedButton(
-                  onPressed: _handleDetails,
-                  child: Text('Details'),
-                  style: OutlinedButton.styleFrom(primary: Colors.blue),
-                ),
-              ),
-            ],
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildBottomButtons() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      children: [
-        _buildIconButton(Icons.history, 'Pending Request', _handlePendingRequest),
-        _buildIconButton(Icons.list_alt, 'Survey History', _handleSurveyHistory),
-      ],
-    );
-  }
-
-  Widget _buildIconButton(IconData icon, String label, VoidCallback onPressed) {
-    return GestureDetector(
-      onTap: onPressed,
-      child: Column(
-        children: [
-          Container(
-            padding: EdgeInsets.all(12),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(12),
-            ),
-            child: Icon(icon, color: Colors.blue, size: 30),
-          ),
-          SizedBox(height: 8),
-          Text(label, style: TextStyle(color: Colors.white)),
-        ],
-      ),
-    );
-  }
-
-  // Example methods to handle user interactions
-  void _handleAccept() {
-    // Implement accept logic
-    setState(() {
-      totalSurvey++;
-    });
-  }
-
-  void _handleDetails() {
-    // Implement details logic
-  }
-
-  void _handlePendingRequest() {
-    // Implement pending request logic
-  }
-
-  void _handleSurveyHistory() {
-    // Implement survey history logic
+  @override
+  bool shouldReclip(CustomClipper<Path> oldClipper) {
+    return false;
   }
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:serveyor_app/View/Screen/Dashboard/Profile/ProfileScreen.dart';
 import 'package:serveyor_app/View/Screen/SurveyPages/MapDirectionScreen.dart';
-
+import 'package:google_fonts/google_fonts.dart';
 class HomeScreen extends StatefulWidget {
   @override
   _HomeScreenState createState() => _HomeScreenState();
@@ -73,9 +74,16 @@ class _HomeScreenState extends State<HomeScreen> {
       padding: const EdgeInsets.all(16.0),
       child: Row(
         children: [
-          CircleAvatar(
-            radius: 30,
-            backgroundImage: AssetImage('assets/images/mahim.png'),
+          GestureDetector(
+            onTap: (){
+              Navigator.of(context).push(
+                MaterialPageRoute(builder: (context) => ProfileScreen(true)),
+              );
+            },
+            child: CircleAvatar(
+              radius: 30,
+              backgroundImage: AssetImage('assets/images/mahim.png'),
+            ),
           ),
           SizedBox(width: 16),
           Column(
@@ -83,14 +91,14 @@ class _HomeScreenState extends State<HomeScreen> {
             children: [
               Text(
                 userName,
-                style: TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),
+                style: GoogleFonts.mulish(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),
               ),
               Row(
                 children: [
                   Icon(Icons.star, color: Colors.yellow, size: 18),
                   Text(
                     userRating.toString(),
-                    style: TextStyle(color: Colors.white, fontSize: 16),
+                    style: GoogleFonts.mulish(color: Colors.white, fontSize: 16),
                   ),
                 ],
               ),
@@ -109,11 +117,11 @@ class _HomeScreenState extends State<HomeScreen> {
         children: [
           Text(
             'Total Earning',
-            style: TextStyle(color: Colors.white70, fontSize: 16),
+            style: GoogleFonts.mulish(color: Colors.white70, fontSize: 16),
           ),
           Text(
             '$totalEarning BDT',
-            style: TextStyle(color: Colors.white, fontSize: 28, fontWeight: FontWeight.bold),
+            style: GoogleFonts.mulish(color: Colors.white, fontSize: 28, fontWeight: FontWeight.bold),
           ),
           SizedBox(height: 10),
           Row(
@@ -133,11 +141,11 @@ class _HomeScreenState extends State<HomeScreen> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(label, style: TextStyle(color: Colors.white70, fontSize: 14)),
+        Text(label, style: GoogleFonts.mulish(color: Colors.white70, fontSize: 14)),
         SizedBox(height: 4),
         Text(
           value,
-          style: TextStyle(
+          style: GoogleFonts.mulish(
             color: isStatus ? Colors.greenAccent : Colors.white,
             fontSize: 16,
             fontWeight: FontWeight.bold,
@@ -166,7 +174,7 @@ class _HomeScreenState extends State<HomeScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Incoming Request', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+            Text('Incoming Request', style: GoogleFonts.mulish(fontSize: 18, fontWeight: FontWeight.bold)),
             SizedBox(height: 16),
             Row(
               children: [
@@ -178,25 +186,25 @@ class _HomeScreenState extends State<HomeScreen> {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('Mohsin Kalam', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
-                    Text('3 kms away | 20 mins', style: TextStyle(color: Colors.grey)),
+                    Text('Mohsin Kalam', style: GoogleFonts.mulish(fontSize: 16, fontWeight: FontWeight.bold)),
+                    Text('3 kms away | 20 mins', style: GoogleFonts.mulish(color: Colors.grey)),
                   ],
                 ),
                 Spacer(),
                 Icon(Icons.star, color: Colors.yellow, size: 18),
-                Text('4.8', style: TextStyle(fontSize: 16)),
+                Text('4.8', style: GoogleFonts.mulish(fontSize: 16)),
               ],
             ),
             SizedBox(height: 12),
-            Text('Location', style: TextStyle(color: Colors.grey)),
-            Text('Bijoy Sharani, Dahaka', style: TextStyle(fontSize: 16)),
+            Text('Location', style: GoogleFonts.mulish(color: Colors.grey)),
+            Text('Bijoy Sharani, Dahaka', style: GoogleFonts.mulish(fontSize: 16)),
             SizedBox(height: 16),
             Row(
               children: [
                 Expanded(
                   child: ElevatedButton(
                     onPressed: _handleAccept,
-                    child: Text('Accept'),
+                    child: Text('Accept', style: GoogleFonts.mulish(color: Colors.white),),
                     style: ElevatedButton.styleFrom(primary: Colors.blue),
                   ),
                 ),
@@ -204,7 +212,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 Expanded(
                   child: OutlinedButton(
                     onPressed: _handleDetails,
-                    child: Text('Details'),
+                    child: Text('Details', style: GoogleFonts.mulish(),),
                     style: OutlinedButton.styleFrom(primary: Colors.blue),
                   ),
                 ),
@@ -249,7 +257,7 @@ class _HomeScreenState extends State<HomeScreen> {
             child: Icon(icon, color: Colors.blue, size: 50),
           ),
           SizedBox(height: 8),
-          Text(label, style: TextStyle(color: Colors.blue)),
+          Text(label, style: GoogleFonts.mulish(color: Colors.blue)),
         ],
       ),
     );
