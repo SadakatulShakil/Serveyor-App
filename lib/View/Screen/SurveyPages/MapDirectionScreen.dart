@@ -24,7 +24,7 @@ class _MapDirectionScreenState extends State<MapDirectionScreen> {
       buttonText = 'Processing...';
     });
 
-    Future.delayed(const Duration(seconds: 3), () {
+    Future.delayed(const Duration(seconds: 2), () {
       setState(() {
         backgroundImage = 'assets/images/new_image.jpeg';
         buttonText = 'Investigate vehicle';

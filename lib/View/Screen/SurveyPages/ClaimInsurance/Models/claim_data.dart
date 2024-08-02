@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'dart:io';
 
 class ClaimData {
   String policyInformation;
@@ -6,9 +7,10 @@ class ClaimData {
   DateTime accidentDate;
   TimeOfDay accidentTime;
   String description;
-  String? name;
-  String? email;
-  String? phone;
+  String ownerName;
+  String driverName;
+  String drivingLicence;
+  List<File> images;
 
   ClaimData({
     this.policyInformation = 'M8000000007',
@@ -16,10 +18,12 @@ class ClaimData {
     DateTime? accidentDate,
     TimeOfDay? accidentTime,
     this.description = '',
-    this.name,
-    this.email,
-    this.phone,
+    this.ownerName = '',
+    this.driverName = '',
+    this.drivingLicence = '',
+    List<File>? images,
   }) :
         this.accidentDate = accidentDate ?? DateTime.now(),
-        this.accidentTime = accidentTime ?? TimeOfDay.now();
+        this.accidentTime = accidentTime ?? TimeOfDay.now(),
+        this.images = images ?? [];
 }

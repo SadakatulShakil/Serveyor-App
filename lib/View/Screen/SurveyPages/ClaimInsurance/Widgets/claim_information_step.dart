@@ -18,6 +18,9 @@ class _ClaimInformationStepState extends State<ClaimInformationStep> {
   late TextEditingController _policyController;
   late TextEditingController _locationController;
   late TextEditingController _descriptionController;
+  late TextEditingController _ownerNameController;
+  late TextEditingController _driverNameController;
+  late TextEditingController _drivingLicenceController;
 
   @override
   void initState() {
@@ -25,6 +28,9 @@ class _ClaimInformationStepState extends State<ClaimInformationStep> {
     _policyController = TextEditingController(text: widget.claimData.policyInformation);
     _locationController = TextEditingController(text: widget.claimData.location);
     _descriptionController = TextEditingController(text: widget.claimData.description);
+    _ownerNameController = TextEditingController(text: widget.claimData.ownerName);
+    _driverNameController = TextEditingController(text: widget.claimData.driverName);
+    _drivingLicenceController = TextEditingController(text: widget.claimData.drivingLicence);
   }
 
   @override
@@ -39,6 +45,12 @@ class _ClaimInformationStepState extends State<ClaimInformationStep> {
           _buildDropdownField('Policy information', _policyController),
           SizedBox(height: 16),
           _buildInputField('Location', _locationController, icon: Icons.location_on_outlined),
+          SizedBox(height: 16),
+          _buildInputField('Owner Name', _ownerNameController),
+          SizedBox(height: 16),
+          _buildInputField('Driver Name', _driverNameController),
+          SizedBox(height: 16),
+          _buildInputField('Driving Licence no', _drivingLicenceController),
           SizedBox(height: 16),
           Row(
             children: [
@@ -140,6 +152,9 @@ class _ClaimInformationStepState extends State<ClaimInformationStep> {
     widget.claimData.policyInformation = _policyController.text;
     widget.claimData.location = _locationController.text;
     widget.claimData.description = _descriptionController.text;
+    widget.claimData.ownerName = _ownerNameController.text;
+    widget.claimData.driverName = _driverNameController.text;
+    widget.claimData.drivingLicence = _drivingLicenceController.text;
     widget.onChanged(widget.claimData);
   }
 }

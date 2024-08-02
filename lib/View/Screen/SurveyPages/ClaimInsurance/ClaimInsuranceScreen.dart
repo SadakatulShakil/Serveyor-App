@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:serveyor_app/View/Screen/SurveyPages/ClaimInsurance/Widgets/attach_damage_photo_step.dart';
 
 import 'Models/claim_data.dart';
 import 'Widgets/claim_information_step.dart';
-import 'Widgets/personal_information_step.dart';
 import 'Widgets/review_step.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -22,7 +22,7 @@ class _ClaimInsuranceFormState extends State<ClaimInsuranceForm> {
       claimData: _claimData,
       onChanged: (data) => setState(() => _claimData = data),
     ),
-    PersonalInformationStep(
+    AttachDamagePhotoStep(
       claimData: _claimData,
       onChanged: (data) => setState(() => _claimData = data),
     ),
@@ -31,7 +31,13 @@ class _ClaimInsuranceFormState extends State<ClaimInsuranceForm> {
 
   void _nextStep() {
     if (_currentStep < _formSteps.length - 1) {
-      setState(() => _currentStep += 1);
+      if (_currentStep == 1 && _claimData.images.length < 2) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Please upload at least 2 images before proceeding')),
+        );
+      } else {
+        setState(() => _currentStep += 1);
+      }
     } else {
       _submitForm();
     }
@@ -53,30 +59,37 @@ class _ClaimInsuranceFormState extends State<ClaimInsuranceForm> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back, color: Colors.black),
-          onPressed: _currentStep == 0 ? () => Navigator.of(context).pop() : _previousStep,
+    return PopScope(
+      canPop: _currentStep == 0,
+      onPopInvoked: (didPop) {
+        if (didPop) return;
+        _previousStep();
+      },
+      child: Scaffold(
+        appBar: AppBar(
+          leading: IconButton(
+            icon: Icon(Icons.arrow_back, color: Colors.black),
+            onPressed: _currentStep == 0 ? () => Navigator.of(context).pop() : _previousStep,
+          ),
+          title: Text('Step ${_currentStep + 1}/3: New Claim', style: GoogleFonts.mulish(color: Colors.black)),
+          backgroundColor: Colors.transparent,
+          elevation: 0,
         ),
-        title: Text('Step ${_currentStep + 1}/3: New Claim', style: GoogleFonts.mulish(color: Colors.black)),
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-      ),
-      body: Form(
-        key: _formKey,
-        child: _formSteps[_currentStep],
-      ),
-      bottomNavigationBar: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: ElevatedButton(
-          onPressed: _nextStep,
-          child: Text(_currentStep < _formSteps.length - 1 ? 'Next' : 'Submit', style: GoogleFonts.mulish(color: Colors.white)),
-          style: ElevatedButton.styleFrom(
-            primary: Colors.blue,
-            padding: EdgeInsets.symmetric(vertical: 16),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(8),
+        body: Form(
+          key: _formKey,
+          child: _formSteps[_currentStep],
+        ),
+        bottomNavigationBar: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: ElevatedButton(
+            onPressed: _nextStep,
+            child: Text(_currentStep < _formSteps.length - 1 ? 'Next' : 'Submit', style: GoogleFonts.mulish(color: Colors.white)),
+            style: ElevatedButton.styleFrom(
+              primary: Colors.blue,
+              padding: EdgeInsets.symmetric(vertical: 16),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(8),
+              ),
             ),
           ),
         ),
