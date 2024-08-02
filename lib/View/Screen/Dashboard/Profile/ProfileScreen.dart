@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:serveyor_app/View/Screen/Login/LoginScreen.dart';
 
 class ProfileScreen extends StatefulWidget {
   bool isBackButton;
@@ -14,6 +15,32 @@ class _ProfileScreenState extends State<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: Align(
+        alignment: Alignment.bottomCenter,
+        child: Padding(
+          padding: const EdgeInsets.only(left: 50.0, right: 50.0, bottom: 16.0, top: 16.0),
+          child: FloatingActionButton.extended(
+            onPressed: () {
+              // Add your onPressed code here!
+              Navigator.of(context).pushReplacement(
+                MaterialPageRoute(builder: (context) => LoginScreen()),
+              );
+            },
+            backgroundColor: Colors.redAccent,
+            label: Container(
+                width: MediaQuery.of(context).size.width,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(Icons.logout, color: Colors.white,),
+                    SizedBox(width: 20),
+                    Text('Logout', style: GoogleFonts.mulish(color: Colors.white, fontSize: 17),),
+                  ],
+                )),
+          ),
+        ),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       body: Column(
         children: [
           Stack(
@@ -23,7 +50,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               ClipPath(
                 clipper: MyClipper(),
                 child: Container(
-                  height: 300,
+                  height: 320,
                   width: MediaQuery.of(context).size.width,
                   child: Stack(
                     fit: StackFit.expand,
@@ -50,33 +77,28 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     },
                   ),
                 ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              Positioned(
+                left: 20,
+                bottom: 10,
+                child: CircleAvatar(
+                  radius: 50,
+                  backgroundColor: Colors.white,
+                  child: CircleAvatar(
+                    radius: 45,
+                    backgroundImage: AssetImage('assets/images/mahim.png'),
+                  ),
+                ),
+              ),
+              Positioned(
+                right: 20,
+                bottom: 10,
+                child: Column(
                   children: [
-                    Positioned(
-                      left: 20,
-                      bottom: 10,
-                      child: CircleAvatar(
-                        radius: 50,
-                        backgroundColor: Colors.white,
-                        child: CircleAvatar(
-                          radius: 45,
-                          backgroundImage: AssetImage('assets/images/mahim.png'),
-                        ),
-                      ),
+                    Icon(
+                      Icons.settings,
+                      color: Colors.blue,
                     ),
-                    Column(
-                      children: [
-                        SizedBox(height: 16,),
-                        Icon(
-                          Icons.settings,
-                          color: Colors.blue,
-                        ),
-                        Text("Setings", style: GoogleFonts.mulish(color: Colors.blue),)
-                      ],
-                    ),
+                    Text("Settings", style: GoogleFonts.mulish(color: Colors.blue),)
                   ],
                 ),
               ),
@@ -95,9 +117,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             ),
           ),
           SizedBox(height: 20),
-          _buildInfoRow(Icons.email, 'laukeith94@gmail.com'),
-          _buildInfoRow(Icons.phone, '+82 95 5808 2654'),
-          _buildInfoRow(Icons.language, 'www.laukeith.com'),
+          _buildScrollableInfoRows(),
         ],
       ),
     );
@@ -115,14 +135,39 @@ class _ProfileScreenState extends State<ProfileScreen> {
     );
   }
 
-  Widget _buildInfoRow(IconData icon, String text) {
+  Widget _buildInfoRow(IconData icon, String label, String text) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 20.0),
       child: Row(
         children: [
           Icon(icon, color: Colors.blue[300], size: 20),
           SizedBox(width: 10),
-          Text(text, style: GoogleFonts.mulish(fontSize: 14)),
+          Text(label, style: GoogleFonts.mulish(fontSize: 14, fontWeight: FontWeight.w700)),
+          SizedBox(width: 10),
+          Expanded(
+            child: Align(
+              alignment: Alignment.centerRight,
+              child: Text(text, style: GoogleFonts.mulish(fontSize: 14)),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildScrollableInfoRows() {
+    return Expanded(
+      child: ListView(
+        padding: EdgeInsets.symmetric(vertical: 8.0),
+        children: [
+          _buildInfoRow(Icons.account_circle_rounded, 'Name: ', 'Md. Mahin Chawdhury'),
+          _buildInfoRow(Icons.email, 'Email: ', 'laukeith94@gmail.com'),
+          _buildInfoRow(Icons.phone, 'Contact: ', '+82 95 5808 2654'),
+          _buildInfoRow(Icons.male_outlined, 'Gender: ','Male'),
+          _buildInfoRow(Icons.home, 'Address: ','Nabisco, Tejgong, Dhaka'),
+          _buildInfoRow(Icons.language, 'Language: ','Bangla & English'),
+          SizedBox(height: 55,)
+          // Add more info rows as needed
         ],
       ),
     );
