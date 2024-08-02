@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:serveyor_app/View/Screen/Dashboard/Profile/ProfileScreen.dart';
+import 'package:serveyor_app/View/Screen/PendingRequest/PendingRequestScreen.dart';
+import 'package:serveyor_app/View/Screen/SurveyDetails/SurveyDetailsScreen.dart';
+import 'package:serveyor_app/View/Screen/SurveyHistory/SurveyHistoryScreen.dart';
 import 'package:serveyor_app/View/Screen/SurveyPages/MapDirectionScreen.dart';
 import 'package:google_fonts/google_fonts.dart';
 class HomeScreen extends StatefulWidget {
@@ -265,10 +268,6 @@ class _HomeScreenState extends State<HomeScreen> {
 
   // Example methods to handle user interactions
   void _handleAccept() {
-    // Implement accept logic
-    // setState(() {
-    //   totalSurvey++;
-    // });
     Navigator.of(context).push(
       MaterialPageRoute(builder: (context) => MapDirectionScreen()),
     );
@@ -276,13 +275,22 @@ class _HomeScreenState extends State<HomeScreen> {
 
   void _handleDetails() {
     // Implement details logic
+    Navigator.of(context).push(
+      MaterialPageRoute(builder: (context) => SurveyDetailsScreen(true)),
+    );
   }
 
   void _handlePendingRequest() {
     // Implement pending request logic
+    Navigator.of(context).push(
+      MaterialPageRoute(builder: (context) => PendingRequestScreen()),
+    );
   }
 
   void _handleSurveyHistory() {
     // Implement survey history logic
+    Navigator.of(context).push(
+      MaterialPageRoute(builder: (context) => SurveyHistoryScreen()),
+    );
   }
 }
