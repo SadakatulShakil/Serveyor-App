@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:serveyor_app/View/Screen/Login/LoginScreen.dart';
+import 'package:serveyor_app/View/Screen/Dashboard/Profile/SettingsScreen.dart';
 
 class ProfileScreen extends StatefulWidget {
   bool isBackButton;
@@ -15,32 +15,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: Align(
-        alignment: Alignment.bottomCenter,
-        child: Padding(
-          padding: const EdgeInsets.only(left: 50.0, right: 50.0, bottom: 16.0, top: 16.0),
-          child: FloatingActionButton.extended(
-            onPressed: () {
-              // Add your onPressed code here!
-              Navigator.of(context).pushReplacement(
-                MaterialPageRoute(builder: (context) => LoginScreen()),
-              );
-            },
-            backgroundColor: Colors.redAccent,
-            label: Container(
-                width: MediaQuery.of(context).size.width,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Icon(Icons.logout, color: Colors.white,),
-                    SizedBox(width: 20),
-                    Text('Logout', style: GoogleFonts.mulish(color: Colors.white, fontSize: 17),),
-                  ],
-                )),
-          ),
-        ),
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       body: Column(
         children: [
           Stack(
@@ -92,14 +66,21 @@ class _ProfileScreenState extends State<ProfileScreen> {
               Positioned(
                 right: 20,
                 bottom: 10,
-                child: Column(
-                  children: [
-                    Icon(
-                      Icons.settings,
-                      color: Colors.blue,
-                    ),
-                    Text("Settings", style: GoogleFonts.mulish(color: Colors.blue),)
-                  ],
+                child: GestureDetector(
+                  onTap: (){
+                    Navigator.of(context).push(
+                      MaterialPageRoute(builder: (context) => AccountSettingsPage()),
+                    );
+                  },
+                  child: Column(
+                    children: [
+                      Icon(
+                        Icons.settings,
+                        color: Colors.blue,
+                      ),
+                      Text("Settings", style: GoogleFonts.mulish(color: Colors.blue),)
+                    ],
+                  ),
                 ),
               ),
             ],
@@ -110,7 +91,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                _buildStatColumn('3057', 'Total Survey'),
+                _buildStatColumn('51', 'Total Survey'),
                 _buildStatColumn('4.5', 'Rating'),
                 _buildStatColumn('5200 BDT', 'Earning'),
               ],
@@ -160,9 +141,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
       child: ListView(
         padding: EdgeInsets.symmetric(vertical: 8.0),
         children: [
-          _buildInfoRow(Icons.account_circle_rounded, 'Name: ', 'Md. Mahin Chawdhury'),
+          _buildInfoRow(Icons.account_circle_rounded, 'Name: ', 'Md. Mahim Chawdhury'),
           _buildInfoRow(Icons.email, 'Email: ', 'laukeith94@gmail.com'),
           _buildInfoRow(Icons.phone, 'Contact: ', '+82 95 5808 2654'),
+          _buildInfoRow(Icons.date_range, 'Born: ', '10-05-1996'),
           _buildInfoRow(Icons.male_outlined, 'Gender: ','Male'),
           _buildInfoRow(Icons.home, 'Address: ','Nabisco, Tejgong, Dhaka'),
           _buildInfoRow(Icons.language, 'Language: ','Bangla & English'),
