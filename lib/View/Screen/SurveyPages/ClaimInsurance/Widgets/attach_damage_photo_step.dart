@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'dart:io';
 import 'package:image_picker/image_picker.dart';
-import 'dart:math' show pi, cos, sin;
+import 'dart:math' show cos, min, pi, sin;
 
 import '../Models/claim_data.dart';
 
@@ -28,40 +28,46 @@ class _AttachDamagePhotoStepState extends State<AttachDamagePhotoStep> {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-      padding: EdgeInsets.all(16),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text('Attach Damage Photo', style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
-          SizedBox(height: 20),
-          _buildCarImageSection(),
-          SizedBox(height: 20),
-          _buildImageList(),
-        ],
+      child: Padding(
+        padding: EdgeInsets.all(16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text('Attach Damage Photo', style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
+            SizedBox(height: 20),
+            _buildCarImageSection(),
+            SizedBox(height: 20),
+            _buildImageList(),
+          ],
+        ),
       ),
     );
   }
 
   Widget _buildCarImageSection() {
-    return Container(
-      width: 500,
-      height: 400,
-      child: Stack(
-        alignment: Alignment.center,
-        children: [
-          Image.asset('assets/images/capture_car.png', width: 200, height: 200),
-          ..._buildCameraButtons(),
-        ],
+    return AspectRatio(
+      aspectRatio: 12 / 13,
+      child: LayoutBuilder(
+        builder: (context, constraints) {
+          return Stack(
+            alignment: Alignment.center,
+            children: [
+              Image.asset('assets/images/capture_car.png', width: constraints.maxWidth * 0.5, height: constraints.maxHeight * 0.5),
+              ..._buildCameraButtons(constraints),
+            ],
+          );
+        },
       ),
     );
   }
 
-  List<Widget> _buildCameraButtons() {
+  List<Widget> _buildCameraButtons(BoxConstraints constraints) {
     return List.generate(8, (index) {
       final angle = index * (2 * pi / 8);
+      final radius = min(constraints.maxWidth, constraints.maxHeight) * 0.40;
       return Positioned(
-        left: 140 + 120 * cos(angle),
-        top: 160 + 150 * sin(angle),
+        left: constraints.maxWidth / 2 + radius * cos(angle) - 28,
+        top: constraints.maxHeight / 2 + radius * sin(angle) - 35,
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
